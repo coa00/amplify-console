@@ -12,7 +12,7 @@ ENV VERSION_RUBY_2_6=2.6.3
 ENV VERSION_BUNDLER=2.0.1
 ENV VERSION_RUBY_DEFAULT=$VERSION_RUBY_2_4
 ENV VERSION_HUGO=0.55.6
-ENV VERSION_YARN=1.16.0
+ENV VERSION_YARN=1.22.15
 ENV VERSION_AMPLIFY=5.2.1
 
 # UTF-8 Environment
@@ -73,11 +73,11 @@ RUN yum -y update && \
     yum clean all && \
     rm -rf /var/cache/yum
 
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 RUN curl -o- -L https://yarnpkg.com/install.sh > /usr/local/bin/yarn-install.sh
 RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
 	nvm install $VERSION_NODE_14 && nvm use $VERSION_NODE_14 && \
-	npm install -g sm grunt-cli bower vuepress gatsby-cli && \
+	npm install -g typescript expo-cli && \
     bash /usr/local/bin/yarn-install.sh --version $VERSION_YARN && \
 	nvm alias default node && nvm cache clear"
 
@@ -96,16 +96,14 @@ RUN /bin/bash -c "pip3 install aws-sam-cli"
 #     rm -rf hugo_${VERSION_HUGO}_Linux-64bit.tar.gz
 
 ## Installing Cypress
-# RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
-#     nvm use ${VERSION_NODE_DEFAULT} && \
-#     npm install -g --unsafe-perm=true --allow-root cypress"
+RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
+    nvm use ${VERSION_NODE_DEFAULT} && \
+    npm install -g --unsafe-perm=true --allow-root cypress"
 
 ## Install AWS Amplify CLI for VERSION_NODE_DEFAULT and VERSION_NODE_10
 RUN /bin/bash -c ". ~/.nvm/nvm.sh && nvm use ${VERSION_NODE_DEFAULT} && \
     npm config set user 0 && npm config set unsafe-perm true && \
-	npm install -g @aws-amplify/cli@${VERSION_AMPLIFY} && \
-    npm install -g typescript && \
-    npm install -g expo-cli"
+	npm install -g @aws-amplify/cli@${VERSION_AMPLIFY}"
 
 
 ## Environment Setup
