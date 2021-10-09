@@ -5,14 +5,15 @@ MAINTAINER Amazon AWS
 ENV VERSION_NODE_8=8.12.0
 ENV VERSION_NODE_10=10.16.0
 ENV VERSION_NODE_12=12
-ENV VERSION_NODE_DEFAULT=$VERSION_NODE_12
+ENV VERSION_NODE_14=14
+ENV VERSION_NODE_DEFAULT=$VERSION_NODE_14
 ENV VERSION_RUBY_2_4=2.4.6
 ENV VERSION_RUBY_2_6=2.6.3
 ENV VERSION_BUNDLER=2.0.1
 ENV VERSION_RUBY_DEFAULT=$VERSION_RUBY_2_4
 ENV VERSION_HUGO=0.55.6
 ENV VERSION_YARN=1.16.0
-ENV VERSION_AMPLIFY=6.2.1
+ENV VERSION_AMPLIFY=5.2.1
 
 # UTF-8 Environment
 ENV LANGUAGE en_US:en
@@ -75,7 +76,7 @@ RUN yum -y update && \
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 RUN curl -o- -L https://yarnpkg.com/install.sh > /usr/local/bin/yarn-install.sh
 RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
-	nvm install $VERSION_NODE_12 && nvm use $VERSION_NODE_12 && \
+	nvm install $VERSION_NODE_14 && nvm use $VERSION_NODE_14 && \
 	npm install -g sm grunt-cli bower vuepress gatsby-cli && \
     bash /usr/local/bin/yarn-install.sh --version $VERSION_YARN && \
 	nvm alias default node && nvm cache clear"
